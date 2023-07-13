@@ -1,0 +1,166 @@
+<div class="container">
+  <form [formGroup]="claimForm"
+    (ngSubmit)="submitForm()"
+    class="claim-form">
+    <div class="row">
+      <div class="col-6">
+        <label for="claimId"
+          class="form-label">Claim ID</label>
+        <input type="text"
+          id="claimId"
+          class="form-control"
+          formControlName="claimId">
+        <div class="error"
+          *ngIf="claimForm.get('claimId')?.invalid && claimForm.get('claimId')?.touched">
+          Claim ID is required.
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="policyNo"
+          class="form-label">Policy Number</label>
+        <input type="text"
+          id="policyNo"
+          class="form-control"
+          formControlName="policyNo">
+        <div class="error"
+          *ngIf="claimForm.get('policyNo')?.invalid && claimForm.get('policyNo')?.touched">
+          Policy Number is required.
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="labourCharges"
+          class="form-label">Labour Charges</label>
+        <input type="number"
+          id="labourCharges"
+          class="form-control"
+          formControlName="labourCharges">
+        <div class="error"
+          *ngIf="claimForm.get('labourCharges')?.invalid && claimForm.get('labourCharges')?.touched">
+          Labour Charges is required.
+        </div>
+      </div>
+
+      <div class="col-6">
+        <label for="partsCost"
+          class="form-label">Parts Cost</label>
+        <input type="number"
+          id="partsCost"
+          class="form-control"
+          formControlName="partsCost">
+        <div class="error"
+          *ngIf="claimForm.get('partsCost')?.invalid && claimForm.get('partsCost')?.touched">
+          Parts Cost is required.
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="policyclass"
+          class="form-label">Policy Class</label>
+        <input type="number"
+          id="policyclass"
+          class="form-control"
+          formControlName="policyClass">
+        <div class="error"
+          *ngIf="claimForm.get('policyClass')?.invalid && claimForm.get('policyClass')?.touched">
+          Policy Class is required.</div>
+      </div>
+
+      <div class="col-6">
+        <label for="depreciationCost"
+          class="form-label">Depreciation Cost</label>
+        <input type="number"
+          id="depreciationCost"
+          class="form-control"
+          formControlName="depreciationCost">
+        <div class="error"
+          *ngIf="claimForm.get('depreciationCost')?.invalid && claimForm.get('depreciationCost')?.touched">
+          Depreciation Cost is required.</div>
+      </div>
+      <div class="col-6">
+        <label for="accidentDetails"
+          class="form-label">Accident Details</label>
+        <input type="text"
+          id="accidentDetails"
+          class="form-control"
+          formControlName="accidentDetails">
+        <div class="error"
+          *ngIf="claimForm.get('accidentDetails')?.invalid && claimForm.get('accidentDetails')?.touched">
+          Accident details is required.</div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="totalAmount"
+          class="form-label">Total Amount</label>
+        <input type="number"
+          id="totalAmount"
+          class="form-control"
+          formControlName="totalAmount">
+        <div class="error"
+          *ngIf="claimForm.get('totalAmount')?.invalid && claimForm.get('totalAmount')?.touched">
+          Total Amount is required.</div>
+      </div>
+
+      <div class="col-6">
+        <label for="vehicleAge"
+          class="form-label">Vehicle Age</label>
+        <input type="number"
+          id="vehicleAge"
+          class="form-control"
+          formControlName="vehicleAge">
+        <div class="error"
+          *ngIf="claimForm.get('vehicleAge')?.invalid && claimForm.get('vehicleAge')?.touched">
+          Vehicle Age is required.</div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label for="estimateLoss"
+          class="form-label">Estimate Loss</label>
+        <input type="number"
+          id="estimateLoss"
+          class="form-control"
+          formControlName="estimateLoss">
+        <div class="error"
+          *ngIf="claimForm.get('estimateLoss')?.invalid && claimForm.get('estimateLoss')?.touched">
+          Estimate Loss is required.</div>
+      </div>
+
+      <div class="form-label col-6">
+        <label for="withdrawn">Withdrawn</label>
+        <input type="checkbox"
+          id="withdrawn"
+          formControlName="withdrawn">
+
+        <label for="closed">Closed</label>
+        <input type="checkbox"
+          id="closed"
+          formControlName="closed">
+      </div>
+    </div>
+
+    <div *ngIf="!claimForm.get('withdrawn')?.value && !claimForm.get('closed')?.value">
+      <label for="claimApprovedAmount"
+        class="form-label">Claim Approved Amount</label>
+      <input type="number"
+        class="form-control"
+        id="claimApprovedAmount"
+        formControlName="claimApprovedAmount">
+      <div class="error"
+        *ngIf="claimForm.get('claimApprovedAmount')?.invalid && claimForm.get('claimApprovedAmount')?.touched">
+        Claim Approved Amount is required.</div>
+    </div>
+
+    <button [disabled]="claimForm.invalid"
+      type="submit"
+      class="btn btn-primary">Submit</button>
+  </form>
+  <div class="container" *ngIf="isAdded">Details Added Successfully</div>
+</div>
