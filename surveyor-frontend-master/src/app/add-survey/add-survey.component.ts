@@ -8,6 +8,7 @@ import { DataService } from '../services/data.service';
 })
 export class AddSurveyComponent implements OnInit {
   claimForm: FormGroup;
+  successFlag = false;
   isAdded = false
   constructor(private formBuilder: FormBuilder,
     private _dataService: DataService) {
@@ -23,11 +24,11 @@ export class AddSurveyComponent implements OnInit {
       claimId: ['', Validators.required],
       accidentDetails: ['', Validators.required],
       policyNo: ['', Validators.required],
-      labourCharges: ['', Validators.required],
-      partsCost: ['', Validators.required],
-      policyClass: ['', Validators.required],
+      labourCharges: ['', [Validators.required,Validators.min(0)]],
+      partsCost: ['', [Validators.required,Validators.min(0)]],
+      policyClass: ['', [Validators.required,Validators.min(0)]],
       depreciationCost: ['', Validators.required],
-      totalAmount: ['', Validators.required],
+      totalAmount: ['', [Validators.required,Validators.min(0)]],
       vehicleAge: ['', Validators.required],
       estimateLoss: ['', Validators.required],
       withdrawn: [false, Validators.required],
@@ -35,16 +36,27 @@ export class AddSurveyComponent implements OnInit {
       claimApprovedAmount: [null]
     });
   }
+  // validateCosts(formGroup: FormGroup) {
+  //   const labourCharges = formGroup.get('labourCharges')!.value;
+  //   const partsCost = formGroup.get('partsCost')!.value;
+
+  //   if (labourCharges <= partsCost) {
+  //     return { invalidCosts: true };
+  //   }
+
+  //   return null;
+  // }
   submitForm() {
-    console.log(this.claimForm.value);
+    if(this.claimForm.get('claimApprovedAmount')!.value<this.claimForm.get('estimateLoss')!.value) return
+    // console.log(this.claimForm.value);
     this._dataService.addSurvey(this.claimForm.value).subscribe(
       response => {
-        console.log(response);
         this.isAdded = true
       },
       error => {
         console.error('Error:', error);
       }
     );
+    this.successFlag = true;
   }
 }

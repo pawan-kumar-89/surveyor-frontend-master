@@ -136,7 +136,14 @@
 
         <button [disabled]="claimEditForm.invalid" type="submit" class="btn btn-primary">Update</button>
       </form>
-      <div class="container" *ngIf="isUpdated">Claim Details Updated Successfully</div>
+      <div class="popup" *ngIf="isUpdated">
+        <div class="popup-content">
+          <h3 class="popup-heading">
+            Claim Details Updated Successfully!
+          </h3>
+          <button class="btn btn-success" (click)="isUpdated=false">Okay</button>
+        </div>
+      </div>
     </div>
   </div>
 </div>

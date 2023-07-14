@@ -1,8 +1,34 @@
-.container {
-}
+.container {}
+
 .claim-form {
   background-color: #FEFEFE
 }
+
 .error {
   color: red;
+}
+
+.popup {
+  position: absolute;
+  top: 0px;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  padding: 1.5rem;
+  background-color: white;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.popup-content button {
+  float: right;
+  margin-top: 15px;
 }

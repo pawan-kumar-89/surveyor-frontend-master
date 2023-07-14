@@ -1,20 +1,22 @@
-<div class="container">
-  <header class="d-flex justify-content-center py-3">
-    <ul class="nav nav-pills">
-      <li class="nav-item"><a routerLink="/add-survey"
-          routerLinkActive="active"
-          class="nav-link">Add Survey</a></li>
-      <li class="nav-item"><a routerLink="/survey-report"
-          routerLinkActive="active"
-          class="nav-link">Survey Report</a></li>
-    </ul>
-  </header>
+<div class="main-bg">
+  <div class="container">
+    <header class="d-flex justify-content-center py-3">
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a routerLink="/add-survey"
+            routerLinkActive="active"
+            class="nav-link">Add Survey</a></li>
+        <li class="nav-item"><a routerLink="/survey-report"
+            routerLinkActive="active"
+            class="nav-link">Survey Report</a></li>
+      </ul>
+    </header>
+  </div>
+  <main>
+    <router-outlet>
+    </router-outlet>
+  </main>
+  <footer>
+  
+  </footer>
+  
 </div>
-<main>
-  <router-outlet>
-
-  </router-outlet>
-</main>
-<footer>
-
-</footer>
