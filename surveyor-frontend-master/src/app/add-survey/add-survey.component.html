@@ -112,3 +112,21 @@
     <button class="btn btn-success" (click)="successFlag=false">Okay</button>
   </div>
 </div>
+<div class="popup" *ngIf="agePolicyFlag">
+  <div class="popup-content">
+    <h2 class="popup-heading">
+     1. If the vehicle age is less than 5 years old, the policy clause is Rs. 500.
+<br>2.If the vehicle age is between 5 and 10 years old, the policy clause is Rs. 1500.
+<br>3. If the vehicle age is more than 10 years old, the policy clause is Rs. 5000.
+    </h2>
+    <button class="btn btn-success" (click)="agePolicyFlag=false">Retry</button>
+  </div>
+</div>
+<div class="popup" *ngIf="claimLossFlag">
+  <div class="popup-content">
+    <h2 class="popup-heading">
+      Claim Approved Amount should be smaller than estimated loss!
+    </h2>
+    <button class="btn btn-danger" (click)="claimLossFlag=false">Retry</button>
+  </div>
+</div>
