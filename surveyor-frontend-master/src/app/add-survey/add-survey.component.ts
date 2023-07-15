@@ -9,6 +9,8 @@ import { DataService } from '../services/data.service';
 export class AddSurveyComponent implements OnInit {
   claimForm: FormGroup;
   successFlag = false;
+  agePolicyFlag = false;
+  claimLossFlag = false
   isAdded = false
   constructor(private formBuilder: FormBuilder,
     private _dataService: DataService) {
@@ -36,18 +38,17 @@ export class AddSurveyComponent implements OnInit {
       claimApprovedAmount: [null]
     });
   }
-  // validateCosts(formGroup: FormGroup) {
-  //   const labourCharges = formGroup.get('labourCharges')!.value;
-  //   const partsCost = formGroup.get('partsCost')!.value;
-
-  //   if (labourCharges <= partsCost) {
-  //     return { invalidCosts: true };
-  //   }
-
-  //   return null;
-  // }
   submitForm() {
-    if(this.claimForm.get('claimApprovedAmount')!.value<this.claimForm.get('estimateLoss')!.value) return
+    if(this.claimForm.get('claimApprovedAmount')!.value < this.claimForm.get('estimateLoss')!.value) {
+      this.claimLossFlag = true
+      return
+    }
+    if(!((this.claimForm.get('vehicalAge')!.value < 5 && this.claimForm.get('policyClass')!.value == 500) || (this.claimForm.get('vehicalAge')!.value > 5 && this.claimForm.get('vehicalAge')!.value <10 && this.claimForm.get('policyClass')!.value == 1500) || (this.claimForm.get('vehicalAge')!.value > 10 && this.claimForm.get('policyClass')!.value == 5000))) {
+      this.agePolicyFlag = true
+      return
+    }
+      this.claimLossFlag = false
+      this.agePolicyFlag = false
     // console.log(this.claimForm.value);
     this._dataService.addSurvey(this.claimForm.value).subscribe(
       response => {
@@ -58,5 +59,6 @@ export class AddSurveyComponent implements OnInit {
       }
     );
     this.successFlag = true;
+    
   }
 }
