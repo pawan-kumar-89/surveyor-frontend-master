@@ -6,6 +6,7 @@ import { ViewSurveyReportComponent } from './view-survey-report/view-survey-repo
 const routes: Routes = [
   { path: 'add-survey', component: AddSurveyComponent },
   { path: 'survey-report', component: ViewSurveyReportComponent },
+  { path: '**', redirectTo: 'add-survey' },
   // Other routes...
 ];
 @NgModule({

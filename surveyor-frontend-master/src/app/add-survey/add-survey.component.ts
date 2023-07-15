@@ -9,8 +9,8 @@ import { DataService } from '../services/data.service';
 export class AddSurveyComponent implements OnInit {
   claimForm: FormGroup;
   successFlag = false;
-  agePolicyFlag = false;
-  claimLossFlag = false
+  isClaimCorrect = true
+  responeMessage = ''
   isAdded = false
   constructor(private formBuilder: FormBuilder,
     private _dataService: DataService) {
@@ -26,11 +26,11 @@ export class AddSurveyComponent implements OnInit {
       claimId: ['', Validators.required],
       accidentDetails: ['', Validators.required],
       policyNo: ['', Validators.required],
-      labourCharges: ['', [Validators.required,Validators.min(0)]],
-      partsCost: ['', [Validators.required,Validators.min(0)]],
-      policyClass: ['', [Validators.required,Validators.min(0)]],
+      labourCharges: ['', [Validators.required, Validators.min(0)]],
+      partsCost: ['', [Validators.required, Validators.min(0)]],
+      policyClass: ['', [Validators.required, Validators.min(0)]],
       depreciationCost: ['', Validators.required],
-      totalAmount: ['', [Validators.required,Validators.min(0)]],
+      totalAmount: ['', [Validators.required, Validators.min(0)]],
       vehicleAge: ['', Validators.required],
       estimateLoss: ['', Validators.required],
       withdrawn: [false, Validators.required],
@@ -38,27 +38,36 @@ export class AddSurveyComponent implements OnInit {
       claimApprovedAmount: [null]
     });
   }
+
+  verifyclaimApprovedAmount() {
+    // if (this.claimForm.get('claimApprovedAmount')!.value >= this.claimForm.get('estimateLoss')!.value) {
+    //   this.isClaimCorrect = false
+    // }
+  }
   submitForm() {
-    if(this.claimForm.get('claimApprovedAmount')!.value < this.claimForm.get('estimateLoss')!.value) {
-      this.claimLossFlag = true
+    if (this.claimForm.get('claimApprovedAmount')!.value >= this.claimForm.get('estimateLoss')!.value) {
+      this.responeMessage = "Claim Approved Amount should be less than Estimate Loss"
+      this.successFlag = true;
       return
+    } else {
+      this._dataService.addSurvey(this.claimForm.value).subscribe(
+        (res) => {
+          console.log("res", res);
+          this.responeMessage = res
+          this.successFlag = true;
+        }, (err) => {
+          console.log("res", err);
+          if(err.status==201) {
+            this.responeMessage = 'Claim Added Successfully!'
+            this.successFlag = true;  
+          } else {
+            this.responeMessage = 'Invalid Form Data!'
+            this.successFlag = true;    
+          }
+        }        
+      );
     }
-    if(!((this.claimForm.get('vehicalAge')!.value < 5 && this.claimForm.get('policyClass')!.value == 500) || (this.claimForm.get('vehicalAge')!.value > 5 && this.claimForm.get('vehicalAge')!.value <10 && this.claimForm.get('policyClass')!.value == 1500) || (this.claimForm.get('vehicalAge')!.value > 10 && this.claimForm.get('policyClass')!.value == 5000))) {
-      this.agePolicyFlag = true
-      return
-    }
-      this.claimLossFlag = false
-      this.agePolicyFlag = false
-    // console.log(this.claimForm.value);
-    this._dataService.addSurvey(this.claimForm.value).subscribe(
-      response => {
-        this.isAdded = true
-      },
-      error => {
-        console.error('Error:', error);
-      }
-    );
-    this.successFlag = true;
     
+
   }
 }

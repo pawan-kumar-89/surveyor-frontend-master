@@ -1,3 +1,21 @@
+.main-bg {
+  background-image: url('../../assets/images/i-bg.png');
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.content-wrap {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 20px;
+  overflow: scroll;
+  height: 95vh;
+}
+label, h2, .row {
+  color: white;
+}
 .popup {
     position: absolute;
     top: 0px;

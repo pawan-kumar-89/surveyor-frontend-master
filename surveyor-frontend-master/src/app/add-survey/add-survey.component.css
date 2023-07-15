@@ -1,9 +1,23 @@
-.container {}
 
-.claim-form {
-  background-color: #FEFEFE
+.main-bg {
+  background-image: url('../../assets/images/i-bg.png');
+  height: 100vh;
+ display: flex;
+ justify-content: center;
+  width: 100%;
 }
-
+label {
+  color: white;
+}
+.claim-form {
+  /* background-color: #FEFEFE */
+}
+.content-wrap {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin: 20px;
+  border-radius: 20px;
+}
 .error {
   color: red;
 }
