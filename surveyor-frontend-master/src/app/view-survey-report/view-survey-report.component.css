@@ -13,8 +13,12 @@
   overflow: scroll;
   height: 95vh;
 }
+
 label, h2, .row {
   color: white;
+}
+.popup-heading{
+  color:black;
 }
 .popup {
     position: absolute;

@@ -64,6 +64,7 @@ export class ViewSurveyReportComponent implements OnInit {
     this._dataService.updateSurvey(this.claimEditForm.value).subscribe(
       response => {
         console.log(response);
+        this.isUpdated=true;
       },
       error => {
         console.error('Error:', error);
