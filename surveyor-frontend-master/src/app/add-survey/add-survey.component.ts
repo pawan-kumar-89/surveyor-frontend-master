@@ -20,6 +20,16 @@ export class AddSurveyComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.claimForm.get('vehicleAge')?.valueChanges.subscribe(()=>{
+      let vehicleAge = this.claimForm.get('vehicleAge')?.value
+      if(vehicleAge < 5) {
+        this.claimForm.get("policyClass")!.setValue(500);
+      } else if(vehicleAge < 10){
+        this.claimForm.get("policyClass")!.setValue(1500);
+      }else{
+        this.claimForm.get("policyClass")!.setValue(5000);
+      }
+    })
   }
   createClaimForm() {
     this.claimForm = this.formBuilder.group({
@@ -51,20 +61,35 @@ export class AddSurveyComponent implements OnInit {
       return
     } else {
       this._dataService.addSurvey(this.claimForm.value).subscribe(
-        (res) => {
-          console.log("res", res);
-          this.responeMessage = res
-          this.successFlag = true;
-        }, (err) => {
+        (err) => {
           console.log("res", err);
-          if(err.status==201) {
+         this.responeMessage = err
+          this.successFlag = true;
+        }, (res) => {
+         
+          console.log("res", res);
+          if(res.status==201) {
             this.responeMessage = 'Claim Added Successfully!'
             this.successFlag = true;  
           } else {
             this.responeMessage = 'Invalid Form Data!'
             this.successFlag = true;    
           }
-        }        
+          
+        }  
+        // (res) => {
+        //     console.log("res", res); 
+        //     if(res.status==201) {
+        //           this.responeMessage = 'Claim Added Successfully!'
+        //            this.successFlag = true;  
+        //          } else {
+        //            this.responeMessage = 'Invalid Form Data!'
+        //            this.successFlag = true;    
+        //          } 
+        //         }, (err) => {
+         
+        //             console.log("res", err);
+        //         }
       );
     }
     
