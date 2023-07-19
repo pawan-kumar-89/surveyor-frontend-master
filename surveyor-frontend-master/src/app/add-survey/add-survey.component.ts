@@ -20,15 +20,34 @@ export class AddSurveyComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.claimForm.get('vehicleAge')?.valueChanges.subscribe(()=>{
+    this.claimForm.get('vehicleAge')?.valueChanges.subscribe(() => {
       let vehicleAge = this.claimForm.get('vehicleAge')?.value
-      if(vehicleAge < 5) {
+      if (vehicleAge < 5) {
         this.claimForm.get("policyClass")!.setValue(500);
-      } else if(vehicleAge < 10){
+      } else if (vehicleAge < 10) {
         this.claimForm.get("policyClass")!.setValue(1500);
-      }else{
+      } else {
         this.claimForm.get("policyClass")!.setValue(5000);
       }
+    })
+    this.claimForm.get('labourCharges')?.valueChanges.subscribe(() => {
+      let labourCharges = this.claimForm.get('labourCharges')?.value
+      let partsCost = this.claimForm.get('partsCost')?.value
+      let policyClass = this.claimForm.get('policyClass')?.value
+      this.claimForm.get("totalAmount")!.setValue(labourCharges + partsCost - policyClass);
+
+    })
+    this.claimForm.get('partsCost')?.valueChanges.subscribe(() => {
+      let labourCharges = this.claimForm.get('labourCharges')?.value
+      let partsCost = this.claimForm.get('partsCost')?.value
+      let policyClass = this.claimForm.get('policyClass')?.value
+      this.claimForm.get("totalAmount")!.setValue(labourCharges + partsCost - policyClass);
+    })
+    this.claimForm.get('policyClass')?.valueChanges.subscribe(() => {
+      let labourCharges = this.claimForm.get('labourCharges')?.value
+      let partsCost = this.claimForm.get('partsCost')?.value
+      let policyClass = this.claimForm.get('policyClass')?.value
+      this.claimForm.get("totalAmount")!.setValue(labourCharges + partsCost - policyClass);
     })
   }
   createClaimForm() {
@@ -36,9 +55,9 @@ export class AddSurveyComponent implements OnInit {
       claimId: ['', Validators.required],
       accidentDetails: ['', Validators.required],
       policyNo: ['', Validators.required],
-      labourCharges: ['', [Validators.required, Validators.min(0)]],
-      partsCost: ['', [Validators.required, Validators.min(0)]],
-      policyClass: ['', [Validators.required, Validators.min(0)]],
+      labourCharges: [0, [Validators.required, Validators.min(0)]],
+      partsCost: [0, [Validators.required, Validators.min(0)]],
+      policyClass: [0, [Validators.required, Validators.min(0)]],
       depreciationCost: ['', Validators.required],
       totalAmount: ['', [Validators.required, Validators.min(0)]],
       vehicleAge: ['', Validators.required],
@@ -63,20 +82,20 @@ export class AddSurveyComponent implements OnInit {
       this._dataService.addSurvey(this.claimForm.value).subscribe(
         (err) => {
           console.log("res", err);
-         this.responeMessage = err
+          this.responeMessage = err
           this.successFlag = true;
         }, (res) => {
-         
+
           console.log("res", res);
-          if(res.status==201) {
+          if (res.status == 201) {
             this.responeMessage = 'Claim Added Successfully!'
-            this.successFlag = true;  
+            this.successFlag = true;
           } else {
             this.responeMessage = 'Invalid Form Data!'
-            this.successFlag = true;    
+            this.successFlag = true;
           }
-          
-        }  
+
+        }
         // (res) => {
         //     console.log("res", res); 
         //     if(res.status==201) {
@@ -87,12 +106,12 @@ export class AddSurveyComponent implements OnInit {
         //            this.successFlag = true;    
         //          } 
         //         }, (err) => {
-         
+
         //             console.log("res", err);
         //         }
       );
     }
-    
+
 
   }
 }
